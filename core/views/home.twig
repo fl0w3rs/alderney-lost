@@ -1,0 +1,38 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="vh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <h1 class="text-elevation--z24">Доступные тесты</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for test in tests %}
+                <div class="mt-3 col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="mx-2 mx-md-0 elevation--z3 text-light rounded position-relative test-card">
+                        <div class="position-absolute w-100 h-100 test-button-overlay d-flex align-items-center justify-content-end" style="display: none!important;">
+                            <a href="{{config['base_link']}}/test/{{test.id}}"><button type="button" class="btn btn-outline-success btn-floating me-2" data-mdb-ripple-color="dark"><i class="fa fa-arrow-right"></i></button></a>
+                        </div>
+                        <div class="p-3 pe-5 test-content text-break">
+                            <h5 class="fw-bold">{{test.name}} {% if test.is_open == 0 %}<small class="text-warning">closed</small>{% endif %}</h5>
+                            
+                            <small>
+                                {{test.question_count}} вопросов • {{test.time|date('i')|number_format}} мин.<br/>
+                                Проходной - {{test.pass_percent}}%
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <a href="{{config['base_link']}}/admin" class="text-center mt-2"><small class="text-elevation--z24">admin</small></a>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button> #}
+
+</div>
+{% endblock %}
+
+{% block js %}<script type="text/javascript" src="{{ '/dist/js/hm.js'|asset }}"></script>{% endblock %}

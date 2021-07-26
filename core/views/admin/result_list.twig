@@ -1,0 +1,59 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Список результатов{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container">
+
+        {# <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div> #}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-sm-10">
+                <div class="py-1 px-3 rounded">
+                    <div class="row">
+                        <div class="col-4">
+                            Участник
+                        </div>
+                        <div class="col-3 text-center">
+                            Тест
+                        </div>
+                        <div class="col-5 text-end">
+                            Статус
+                        </div>
+                    </div>
+                </div>
+                {% for v in results %}
+                <a href="{{config['base_link']}}/admin/result/{{v.id}}">
+                    <div class="elevation--z4 my-1 py-1 px-3 rounded text-light">
+                        <div class="row">
+                            <div class="col-4">
+                                {{v.user_name}}
+                            </div>
+                            <div class="col-3 text-center">
+                                {{v.name}}
+                            </div>
+                            <div class="col-5 text-end">
+                                {% if v.status == -1 %}<span class="text-danger">Провален ({{v.fail_reason}})</span>{%
+                                elseif v.status == 1 %}<span class="text-warning">В процессе</span>{% elseif v.status ==
+                                2 %}<span class="text-success">Пройден (успех)</span>{% elseif v.status == 3 %}<span
+                                    class="text-danger">Провален (низкий балл)</span>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+{% endblock %}

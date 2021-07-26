@@ -1,0 +1,108 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Результаты теста{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container my-2">
+
+        {# <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div> #}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-sm-10">
+                <div class="elevation--z1 rounded p-3" id="test-block">
+                    <div class="text-center text-light fw-bold">
+                        <div class="h3 font-weight-bold">{{test.name}}</div>
+                        <div>
+                            {% if result.status == 1 %}
+                            <small>{{user.name}}, выполняет уже {{(time - result.start_time)|date('i:s')}}</small>
+                            {% else %}
+                            <small>{{user.name}}, выполнен за {{(result.end_time -
+                                result.start_time)|date('i:s')}}</small>
+                            {% endif %}
+                        </div>
+                        <div
+                            class="{% if result.status == -1 or result.status == 3 %}text-danger{% elseif result.status == 1 %}text-warning{% elseif result.status == 2 %}text-success{% endif %}">
+                            <small>{% if result.status == -1 %}Провален ({{result.fail_reason}}){% elseif result.status
+                                == 3 %}Провален (низкий балл){% elseif result.status == 1 %}В процессе{% elseif
+                                result.status == 2 %}Пройден (успешно){% endif %}</small>
+                        </div>
+                        <div>
+                            <small>
+                                Правильных ответов: {{result.valid_answers}} из {{result.total_questions}}<br />
+                                Набрано {{(result.valid_answers/result.total_questions*100)|round(1, 'floor')}}% при
+                                проходном {{test.pass_percent}}%
+                            </small>
+                        </div>
+                        {% if result.status != 1 and result.retest == 0 %}<a class="my-2"
+                            href="{{config['base_link']}}/api/admin/result/{{result.id}}/retest"><button
+                                class="btn btn-danger btn-sm">Выдать возможность перепройти</button></a>{% endif %}
+
+                    </div>
+
+                    <div class="mt-3">
+                        {% for ans_key, answer in answers %}
+                        {{answer['text']}} {% if answer.is_valid == 1 %}<span
+                            class="text-success fw-bold">+</span><button type="button"
+                            class="btn btn-outline-primary btn-sm ms-3"
+                            onclick="adminChangeAnswerIsValid({{ answer.answer_id }}, 0)">Отметить как
+                            неправильный</button>{%
+                        elseif answer.is_valid == 0 %}<span class="text-danger fw-bold">-</span><button type="button"
+                            class="btn btn-outline-primary btn-sm ms-3"
+                            onclick="adminChangeAnswerIsValid({{ answer.answer_id }}, 1)">Отметить как
+                            правильный</button>{% endif
+                        %}
+                        {% if answer.type == 1 or answer.type == 2 %}
+                        <ul>
+                            {% if answer.type == 1 %}
+                            {% for opt_key, opt in answer['processed_options'] %}
+                            <li>
+                                <label for="option{{ans_key}}_{{opt_key}}">
+                                    <input id="option{{ans_key}}_{{opt_key}}" name="answer_{{ans_key}}" type="radio"
+                                        disabled {% if opt.selected==1 %}checked{% endif %}>
+                                    {{opt.text}} {% if opt.valid == 1 %}<span class="text-success fw-bold">-
+                                        правильный</span>{% endif %}
+                                </label>
+                            </li>
+                            {% endfor %}
+                            {% elseif answer.type == 2 %}
+                            {% for opt_key, opt in answer['processed_options'] %}
+                            <li>
+                                <label for="option{{ans_key}}_{{opt_key}}">
+                                    <input id="option{{ans_key}}_{{opt_key}}" name="answer_{{ans_key}}" type="checkbox"
+                                        disabled {% if opt.selected==1 %}checked{% endif %}>
+                                    {{opt.text}} {% if opt.valid == 1 %}<span class="text-success fw-bold">-
+                                        правильный</span>{% endif %}
+                                </label>
+                            </li>
+                            {% endfor %}
+
+                            {% endif %}
+                        </ul>
+                        {% elseif answer.type == 3 %}
+                        <div class="mt-2 form-outline form-white">
+                            <textarea disabled class="form-control bg-dark" id="textAreaExample"
+                                rows="4">{{ answer.user_answers }}</textarea>
+                            <label class="form-label" for="textAreaExample">Ответ</label>
+                        </div>
+                        {% endif %}
+                        <hr />
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ '/dist/css/toggles.css'|asset }}">{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="vh-100 d-flex flex-column align-items-center justify-content-center">
+    <h2 class="fw-bold text-warning">{{title}}</h2>
+    {% if text|length > 0 %}
+        <h5>{{text}}</h5>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Аутентификация{% endblock %}
+
+{% block content %}
+<div class="vh-100 d-flex flex-column align-items-center justify-content-center">
+
+    <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="90">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Войти <i class="fa fa-arrow-right"></i></button>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ '/dist/js/ath.js'|asset }}"></script>{% endblock %}

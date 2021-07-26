@@ -1,0 +1,50 @@
+@import "~vue-toastification/dist/index.css";
+ 
+@import "elevations.scss";
+// @import "toggles.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+.font-medieval {
+    font-family: 'MedievalSharp', cursive!important;
+}
+
+.blink-animation {
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink{
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
+.test-button-overlay {
+    display: none;
+}
+
+.mvh-100 {
+    min-height: 100vh;
+}
+
+.form-outline .form-control~.form-label.select-label {
+    color: #eeeeee!important;
+}
+
+
+.select-arrow {
+    color: #eeeeee!important;
+}
+
+.form-control {
+    color: #fbfbfb!important;
+}
+
+a {
+
+}
+
+
+// .test-content:hover ~ .test-button-overlay  {
+//     display: block;
+// }

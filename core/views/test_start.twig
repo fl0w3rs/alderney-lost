@@ -1,0 +1,43 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Тест{% endblock %}
+
+{% block content %}
+<div class="vh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container">
+
+        <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-5 col-md-6 col-sm-7">
+                <div class="elevation--z1 rounded p-3" id="test-block">
+                    <div class="text-center fw-bold h3 text-warning">Предупреждение</div>
+                    <div class="mt-1">
+                        <p>Нажав кнопку ниже, Вы начнёте прохождение теста.</p>
+                        <p class="mb-0">
+                            Копирование с форума какой-либо информации запрещено. В случае обнаружения, Ваш тест будет
+                            аннулирован.
+                        </p>
+                        <div class="text-center mt-2"><button class="btn btn-dark"
+                                onclick="startTest({{test.id}})">Начать</button></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ '/dist/css/toggles.css'|asset }}">{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ '/dist/js/test.js'|asset }}"></script>{% endblock %}

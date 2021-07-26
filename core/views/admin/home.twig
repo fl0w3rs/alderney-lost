@@ -1,0 +1,12 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Админ панель{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-row align-items-center justify-content-center user-select-none">
+
+    <a href="{{config['base_link']}}/admin/test/list" class="mx-1">Тесты</a> | <a
+        href="{{config['base_link']}}/admin/result/list" class="mx-1">Результаты</a>
+
+</div>
+{% endblock %}

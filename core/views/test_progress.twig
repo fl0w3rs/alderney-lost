@@ -1,0 +1,97 @@
+{% if test.status == 1 %}
+<div class="fw-bold h5">{{question['text']}}</div>
+<div class="mt-1 d-flex flex-column">
+    {% if question['type'] == 1 or question['type'] == 2 %}
+    <ul>
+        {% if question['type'] == 1 %}
+        {% for key, ans in question['options']|split('|ALDERNEY|') %}
+        <li>
+            <label for="option{{key}}"><input id="option{{key}}" type="radio" name="answer" value="{{key}}">
+                {{ans}}</label>
+        </li>
+        {% endfor %}
+        {% elseif question['type'] == 2 %}
+        {% for key, ans in question['options']|split('|ALDERNEY|') %}
+
+        <li>
+            <label for="option{{key}}"><input id="option{{key}}" type="checkbox" name="answer" value="{{key}}">
+                {{ans}}</label>
+        </li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+    {% endif %}
+
+    {% if question['type'] == 3 %}
+    <div class="form-outline form-white">
+        <textarea class="form-control" id="answerText" name="answer" rows="4"></textarea>
+        <label class="form-label" for="answerText">Ответ</label>
+    </div>
+    {% endif %}
+
+    <div class="position-relative mt-2">
+        <div class="position-absolute h-100 w-100 row" style="z-index: -1">
+            <div class="col-6 d-flex justify-content-start">
+
+                <small class="fw-bold ms-3">{{test['current_question'] + 1}}/{{test['total_questions']}}</small>
+
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+
+                <small class="fw-bold" id="test-time">{{(test_real['time'] - (time -
+                    test['start_time']))|date('i:s')}}</small>
+
+            </div>
+        </div>
+        <div class="text-center"><button class="btn btn-dark btn-sm" onclick="submitAnswer()">Отправить</button></div>
+
+    </div>
+</div>
+{% elseif test.status == -1 %}
+<div class="text-center">
+    <div class="fw-bold h4 text-danger">Тест провален</div>
+    <div class="mt-1 d-flex flex-column">
+        Причина:<br />
+        <small>{{test.fail_reason}}</small><br />
+        Если Вы считаете, что это ошибка - обратитесь к администрации
+
+        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
+                    class="btn btn-danger btn-sm">Хорошо</button></a></div>
+    </div>
+
+</div>
+{# {% elseif test.status == 2 %}
+<div class="text-center">
+    <div class="fw-bold h4 text-success">Тест пройден</div>
+    <div class="mt-1 d-flex flex-column">
+        Правильных ответов: {{test.valid_answers}} из {{test.total_questions}}<br />
+        Набрано {{(test.valid_answers/test.total_questions*100)|round(1, 'floor')}}% при проходном
+        {{test_real.pass_percent}}%
+
+        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
+                    class="btn btn-success btn-sm">Хорошо</button></a></div>
+    </div>
+</div>
+{% elseif test.status == 3 %}
+<div class="text-center">
+    <div class="fw-bold h4 text-danger">Тест провален</div>
+    <div class="mt-1 d-flex flex-column">
+        Правильных ответов: {{test.valid_answers}} из {{test.total_questions}}<br />
+        Набрано {{(test.valid_answers/test.total_questions*100)|round(1, 'floor')}}% при проходном
+        {{test_real.pass_percent}}%
+
+        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
+                    class="btn btn-danger btn-sm">Хорошо</button></a></div>
+    </div>
+</div>
+{% endif %} #}
+{% else %}<div class="text-center">
+    <div class="fw-bold h4 text-warning">Тест пройден</div>
+    <div class="mt-1 d-flex flex-column">
+        Дальше тесту предстоит пройти финальную проверку, после этого Вы будете оповещены о результате.
+
+        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
+                    class="btn btn-success btn-sm">Хорошо</button></a></div>
+    </div>
+</div>
+{% endif %}

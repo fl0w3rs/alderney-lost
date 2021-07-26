@@ -1,0 +1,78 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Редактирование теста{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container my-2">
+
+        {# <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div> #}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-5 col-md-6 col-sm-7">
+                <div class="elevation--z1 rounded p-3" id="test-edit-form">
+                    <div class="form-outline form-white">
+                        <input type="text" id="test_name" class="form-control" value="{{test.name}}" />
+                        <label class="form-label" for="test_name">Название</label>
+                    </div>
+
+                    <div class="form-outline form-white mt-3">
+                        <input type="text" id="test_time" class="form-control" value="{{test.time}}" />
+                        <label class="form-label" for="test_time">Время на прохождение (в секундах)</label>
+                    </div>
+
+                    <div class="form-outline form-white mt-3">
+                        <input type="text" id="test_question_count" class="form-control"
+                            value="{{test.question_count}}" />
+                        <label class="form-label" for="test_question_count">Количество отображаемых вопросов</label>
+                    </div>
+
+                    <div class="form-outline form-white mt-3">
+                        <input type="text" id="test_pass_percent" class="form-control" value="{{test.pass_percent}}" />
+                        <label class="form-label" for="test_pass_percent">Проходной процент</label>
+                    </div>
+
+                    <div class="mt-3">
+                        <select id="test_groups" class="select" multiple>
+                            {% for group in groups %}
+                            <option value="{{group.g_id}}" {% if group.selected==true %}selected{% endif %}>
+                                {{group.word_custom}}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="form-label select-label">Доступ по группе</label>
+
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-center">
+                        <div class="form-check mt-2 mx-auto">
+                            <input class="form-check-input" type="checkbox" id="test_is_open" {% if test.is_open==1
+                                %}checked{% endif %} />
+                            <label class="form-check-label" style="padding-top: .10rem!important;"
+                                for="test_is_open">Открыт</label>
+                        </div>
+                    </div>
+
+                    <button type="button" id="test-edit-button"
+                        class="btn btn-primary btn-block mt-2">Сохранить</button>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">const TEST_ID = {{ test.id }};</script>
+<script type="text/javascript" src="{{ '/dist/js/adm/testedt.js'|asset }}"></script>
+{% endblock %}

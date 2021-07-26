@@ -1,0 +1,59 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Список тестов{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container">
+
+        {# <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div> #}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-sm-10">
+                <div class="py-1 px-3 rounded">
+                    <div class="row">
+                        <div class="col-7">
+                            Название
+                        </div>
+                        <div class="col-5 text-end">
+                            Действия
+                        </div>
+                    </div>
+                </div>
+                {% for v in tests %}
+                <div class="elevation--z4 my-1 py-1 px-3 rounded text-light">
+                    <div class="row">
+                        <div class="col-7">
+                            {{v.name}}
+                        </div>
+                        <div class="col-5 text-end">
+                            <a href="{{config['base_link']}}/admin/test/{{v.id}}" class="mx-1">редактировать</a>
+                            <a href="{{config['base_link']}}/admin/test/{{v.id}}/questions" class="mx-1">вопросы</a>
+                            <a href="{{config['base_link']}}/api/admin/test/{{v.id}}/delete" class="mx-1">удалить</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="py-1 px-3 rounded">
+                    <div class="row">
+                        <div class="col-7">
+                        </div>
+                        <div class="col-5 text-end">
+                            <a href="{{config['base_link']}}/admin/test/create" class="mx-1">новый</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+{% endblock %}

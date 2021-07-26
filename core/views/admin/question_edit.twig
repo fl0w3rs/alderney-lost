@@ -1,0 +1,77 @@
+{% extends "_components/layouts/main.twig" %}
+
+{% block title %}Редактирование вопроса{% endblock %}
+
+{% block content %}
+<div class="mvh-100 d-flex flex-column align-items-center justify-content-center user-select-none">
+
+    <div class="container my-2">
+
+        {# <div class="text-center">
+            <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+        </div> #}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-5 col-md-6 col-sm-7">
+                <form class="elevation--z1 rounded p-3" id="question-edit-form">
+                    <small>Текст вопроса</small>
+                    <div class="form-outline form-white">
+                        <input type="text" name="question_text" id="question_text" class="form-control"
+                            value="{{question.text|raw}}" />
+                    </div>
+
+                    <div class="mt-1">
+                        <small>Тип вопроса</small>
+                        <select name="question_type" class="select">
+                            <option value="1" {% if question.type==1 %}selected{% endif %}>Один ответ</option>
+                            <option value="2" {% if question.type==2 %}selected{% endif %}>Несколько ответов</option>
+                            <option value="3" {% if question.type==3 %}selected{% endif %}>Текстовый</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-2 mb-1" id="option-block">
+                        <small>Варианты ответа</small>
+                        {% for ans in question.options|split('|ALDERNEY|') %}
+                        <div class="form-outline form-white mb-2">
+                            <input type="text" name="options[]" class="form-control" value="{{ans|raw}}" />
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="btn btn-dark btn-sm btn-block" id="add-new-option">Добавить
+                        вариант</button>
+
+                    <div class="mt-2">
+                        <small>Правильные ответы (разделять запятой, отсчёт с 0)</small>
+                        <div class="form-outline form-white">
+                            <input type="text" name="question_answers" id="question_answers" class="form-control"
+                                value="{{question.answers}}" />
+                        </div>
+                    </div>
+
+                    <button type="button" id="question-edit-button"
+                        class="btn btn-primary btn-block mt-2">Сохранить</button>
+
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    {# <img src="{{ '/dist/img/logo.png'|asset }}" id="logo" alt="logo" height="100">
+    <button class="btn btn-light btn-light btn-rounded" id="lgn-btn">Log in <i class="fa fa-arrow-right"></i></button>
+    #}
+
+</div>
+
+<div style="display:none;" id="option-template">
+    <div class="form-outline form-white my-2">
+        <input type="text" name="options[]" class="form-control" />
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">const QUESTION_ID = {{ question.id }};</script>
+<script type="text/javascript" src="{{ '/dist/js/adm/qstnedt.js'|asset }}"></script>
+{% endblock %}
